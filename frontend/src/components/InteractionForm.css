@@ -1,0 +1,26 @@
+.interaction-card{
+    border-radius:18px !important;
+    box-shadow:0 8px 25px rgba(0,0,0,.08) !important;
+    padding:8px;
+}
+
+.interaction-card .MuiCardContent-root{
+    padding:32px !important;
+}
+
+.interaction-card .MuiOutlinedInput-root{
+    border-radius:12px;
+    background:#fafafa;
+}
+
+.interaction-card .MuiOutlinedInput-root:hover{
+    background:white;
+}
+
+.interaction-card .MuiButton-root{
+    margin-top:10px;
+}
+
+.interaction-card .MuiTypography-root{
+    margin-bottom:10px;
+}
