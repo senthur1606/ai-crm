@@ -2,37 +2,49 @@
 
 ## Overview
 
-AI CRM is a web application designed to help Medical Representatives record and manage Healthcare Professional (HCP) interactions. The application provides AI-powered assistance to summarize conversations, suggest follow-up actions, retrieve previous interactions, and recommend the next best action.
+AI CRM is a web application developed to help Medical Representatives manage Healthcare Professional (HCP) interactions. The application allows users to log interactions through a structured form and provides AI-powered assistance using LangGraph and Groq LLM.
 
 ## Features
 
 - Dashboard with interaction statistics
-- Log HCP interactions using a structured form
-- Edit and delete interaction records
+- Log HCP interactions
+- Edit existing interactions
+- Delete interactions
 - View interaction history
 - AI-powered interaction summary
 - Previous HCP interaction retrieval
 - Follow-up recommendation
 - Next Best Action suggestion
-- Loading indicator and Snackbar notifications
+- Snackbar notifications
+- Loading indicator during AI response
 
-## Technology Stack
+---
+
+## Tech Stack
 
 ### Frontend
+
 - React
+- Redux Toolkit
+- Vite
 - Material UI
 - Axios
-- React Router
+- React Router DOM
 
 ### Backend
+
 - Python
 - FastAPI
 - SQLAlchemy
-- SQLite
+- MySQL
+- Uvicorn
 
 ### AI
+
 - LangGraph
-- Groq LLM
+- Groq LLM (gemma2-9b-it)
+
+---
 
 ## Project Structure
 
@@ -44,16 +56,17 @@ ai-crm/
 │   ├── routers/
 │   ├── crud.py
 │   ├── database.py
-│   ├── main.py
 │   ├── models.py
 │   ├── schemas.py
+│   ├── main.py
 │   ├── requirements.txt
-│   └── .env
+│   └── .env.example
 │
 ├── frontend/
 │   ├── src/
 │   │   ├── components/
 │   │   ├── pages/
+│   │   ├── redux/
 │   │   ├── services/
 │   │   └── App.jsx
 │   └── package.json
@@ -61,23 +74,20 @@ ai-crm/
 └── README.md
 ```
 
+---
+
 ## Installation
 
 ### Clone Repository
 
 ```bash
 git clone https://github.com/senthur1606/ai-crm.git
-```
-
-```bash
 cd ai-crm
 ```
 
 ---
 
 ## Backend Setup
-
-Move to backend folder.
 
 ```bash
 cd backend
@@ -109,13 +119,25 @@ Create a `.env` file.
 GROQ_API_KEY=your_groq_api_key
 ```
 
-Run backend.
+Create MySQL database.
+
+```sql
+CREATE DATABASE ai_crm;
+```
+
+Update the database connection in `database.py`.
+
+```python
+DATABASE_URL = "mysql+pymysql://root:your_password@localhost/ai_crm"
+```
+
+Run the backend.
 
 ```bash
 python -m uvicorn main:app --reload
 ```
 
-Backend runs at:
+Backend:
 
 ```
 http://127.0.0.1:8000
@@ -124,8 +146,6 @@ http://127.0.0.1:8000
 ---
 
 ## Frontend Setup
-
-Move to frontend folder.
 
 ```bash
 cd frontend
@@ -143,7 +163,7 @@ Run frontend.
 npm run dev
 ```
 
-Frontend runs at:
+Frontend:
 
 ```
 http://localhost:5173
@@ -153,38 +173,64 @@ http://localhost:5173
 
 ## AI Features
 
-The application uses LangGraph with Groq LLM to provide:
+The LangGraph agent provides:
 
+- Log Interaction
+- Edit Interaction
 - Interaction Summary
-- Previous HCP Interactions
+- Previous HCP Interaction History
 - Follow-up Recommendation
-- Next Best Action
+- Next Best Action Suggestion
 
 ---
 
 ## CRUD Operations
 
 - Create Interaction
-- View Interaction History
+- Read Interaction History
 - Update Interaction
 - Delete Interaction
 
 ---
 
+## AI Workflow
+
+```
+User
+  │
+  ▼
+React + Redux
+  │
+  ▼
+FastAPI
+  │
+  ▼
+LangGraph
+  │
+  ▼
+Groq LLM
+  │
+  ▼
+MySQL
+  │
+  ▼
+Response to UI
+```
+
+---
+
 ## Future Improvements
 
-- Authentication
-- Role-based access
-- MySQL/PostgreSQL support
-- Redux state management
-- Export reports
-- Advanced analytics
+- User Authentication
+- Role-Based Access
+- Dashboard Analytics
+- Export Reports
+- Email Notifications
 
 ---
 
 ## Author
 
-Senthur Pandian
+**Senthur Pandian**
 
-GitHub:
-https://github.com/senthur1606
+GitHub: https://github.com/senthur1606

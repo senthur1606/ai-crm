@@ -13,10 +13,16 @@ import {
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import SaveIcon from "@mui/icons-material/Save";
+import { useDispatch } from "react-redux";
+import {
+  addInteraction,
+  updateInteraction,
+} from "../redux/interactionSlice";
 import api from "../services/api";
 import "./InteractionForm.css";
 
 function InteractionForm({editing, onSaved}) {
+  const dispatch = useDispatch();
   const [form, setForm] = useState({
     hcpName: "",
     hospital: "",

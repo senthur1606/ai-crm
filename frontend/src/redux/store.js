@@ -3,6 +3,6 @@ import interactionReducer from "./interactionSlice";
 
 export const store = configureStore({
   reducer: {
-    interaction: interactionReducer,
+    interactions: interactionReducer,
   },
 });

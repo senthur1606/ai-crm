@@ -6,11 +6,20 @@ import ChatBox from "../components/ChatBox";
 import InteractionHistory from "../components/InteractionHistory";
 import api from "../services/api";
 import { Snackbar, Alert } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  setInteractions,
+  deleteInteraction,
+} from "../redux/interactionSlice";
 import "./LogInteraction.css";
 
 function LogInteraction() {
+  const dispatch = useDispatch();
 
-  const [rows, setRows] = useState([]);
+  const rows = useSelector(
+  (state) => state.interactions.rows
+);
   const [editing, setEditing] = useState(null);
   const [snackbar, setSnackbar] = useState({
   open: false,
@@ -21,7 +30,7 @@ function LogInteraction() {
   const fetchInteractions = async () => {
     try {
       const res = await api.get("/interactions/");
-      setRows(res.data);
+      dispatch(setInteractions(res.data));
     } catch (err) {
       console.error(err);
     }
@@ -49,7 +58,7 @@ function LogInteraction() {
   severity: "success",
 });
 
-    fetchInteractions();
+    dispatch(deleteInteraction(id));
 
   } catch (err) {
 
@@ -81,7 +90,8 @@ function LogInteraction() {
         <div className="log-container">
          <InteractionForm
           editing={editing}
-          onSaved={()=>{fetchInteractions();
+          onSaved={()=>{
+            fetchInteractions();
           setEditing(null);
           }}
          />
